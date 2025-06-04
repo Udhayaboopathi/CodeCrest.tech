@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-      <section id="services" className="py-12 px-4">
+      <section id="services" className=" px-4">
         <h2 className="text-2xl font-bold text-center mb-8">Our Features</h2>
         <div className="grid md:grid-cols-3 gap-6">
           <FeatureCard

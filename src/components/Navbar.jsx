@@ -1,118 +1,102 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import icon from "../asserts/icon.png";
 
-function NavbarComponent() {
-  const [isOpen, setIsOpen] = useState(false);
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Contact", path: "/contact" },
+  { name: "Team", path: "/team" },
+];
 
+export default function AnimatedNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
 
-  // NavLink class generator for light theme
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
-      : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0";
+      ? "text-purple-600 font-semibold"
+      : "text-gray-700 hover:text-purple-600 transition-colors duration-200";
 
   return (
-    <>
-      <nav className="bg-white border-gray-200 fixed w-full z-30 top-0 left-0 border-b">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          {/* Brand */}
-          <NavLink to="/" className="flex items-center" onClick={closeMenu}>
-            <img src={icon} className="h-6 mr-3 sm:h-9" alt="Logo" />
-            <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-900">
-              CodeCrest-Tech
-            </span>
-          </NavLink>
+    <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2">
+          <img src={icon} alt="Logo" className="h-8" />
+          <span className="text-xl font-bold text-gray-800">
+            CodeCrest-Tech
+          </span>
+        </NavLink>
 
-          {/* Toggle Button */}
-          <div className="flex md:order-2">
-            <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-2"
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex gap-8 items-center">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={navLinkClass}
+              onClick={closeMenu}
             >
-              Get started
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-              className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100"
-              aria-controls="navbar-default"
-              aria-expanded={isOpen}
-            >
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
+              {link.name}
+            </NavLink>
+          ))}
+          <button className="ml-4 px-5 py-2 text-sm bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow-md transition-all">
+            Get Started
+          </button>
+        </nav>
 
-          {/* Collapsible Nav Links */}
-          <div
-            className={`${
-              isOpen ? "block" : "hidden"
-            } w-full md:block md:w-auto md:order-1`}
-            id="navbar-default"
+        {/* Hamburger Button */}
+        <button
+          className="md:hidden p-2 rounded-md hover:bg-gray-100"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
-              <li>
-                <NavLink to="/" className={navLinkClass} onClick={closeMenu}>
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/about"
-                  className={navLinkClass}
-                  onClick={closeMenu}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/services"
-                  className={navLinkClass}
-                  onClick={closeMenu}
-                >
-                  Services
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contact"
-                  className={navLinkClass}
-                  onClick={closeMenu}
-                >
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          onClick={closeMenu}
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
-          aria-hidden="true"
-        ></div>
-      )}
-    </>
+      {/* Mobile Nav - Animated Dropdown */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white shadow-md"
+          >
+            <ul className="flex flex-col items-start px-6 py-4 gap-4">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
+                  className={navLinkClass}
+                  onClick={closeMenu}
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+              <button className="mt-2 px-5 py-2 text-sm bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all w-full text-center">
+                Get Started
+              </button>
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
-
-export default NavbarComponent;

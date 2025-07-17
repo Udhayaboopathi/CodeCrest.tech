@@ -42,7 +42,7 @@ export default function About() {
         className="max-w-4xl mx-auto bg-white rounded-lg p-10 shadow-lg"
       >
         <h2 className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
-          About <span className="text-purple-600">CodeCrest-Tech</span>
+          About <span className="text-purple-600">CodrCrest-Tech</span>
         </h2>
         <p className="text-gray-700 mb-8 text-lg text-center">
           We are a creative tech team passionate about building clean, scalable,
@@ -95,7 +95,7 @@ export default function About() {
       >
         <h4 className="text-2xl font-semibold mb-3">Want to work with us?</h4>
         <p className="text-lg mb-6">
-          Join hands with CodeCrest-Tech and let's build something amazing
+          Join hands with CodrCrest-Tech and let's build something amazing
           together.
         </p>
         <a

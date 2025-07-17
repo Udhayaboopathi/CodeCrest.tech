@@ -13,7 +13,7 @@ export default function HeroSection() {
         >
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
             Build Smarter with{" "}
-            <span className="text-purple-600">CodeCrest-Tech</span>
+            <span className="text-purple-600">CodrCrest-Tech</span>
           </h1>
           <p className="text-gray-600 text-lg mb-6">
             Accelerate your projects with modern tools, clean design, and

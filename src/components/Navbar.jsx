@@ -27,7 +27,7 @@ export default function AnimatedNavbar() {
         <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2">
           <img src={icon} alt="Logo" className="h-8" />
           <span className="text-xl font-bold text-gray-800">
-            CodeCrest-Tech
+            CodrCrest-Tech
           </span>
         </NavLink>
 

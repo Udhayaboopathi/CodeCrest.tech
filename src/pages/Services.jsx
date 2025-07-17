@@ -60,7 +60,7 @@ export default function Services() {
           Our <span className="text-purple-600">Services</span>
         </h2>
         <p className="text-lg text-gray-600 mb-12">
-          CodeCrest-Tech builds intelligent and scalable solutions for the web,
+          CodrCrest-Tech builds intelligent and scalable solutions for the web,
           chat, and communities.
         </p>
       </motion.div>
